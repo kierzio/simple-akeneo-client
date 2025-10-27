@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+.dist/
+build/
+*.egg-info/
+dist/
+downloads/
+.coverage
+.pytest_cache/
+.mypy_cache/
+.cache/
+AGENTS.md
