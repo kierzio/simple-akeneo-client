@@ -39,7 +39,7 @@ def products(limit: int = typer.Option(100, help="Items per page (max 100)"),
     asyncio.run(run())
 
 @app.command("download")
-def download(output: str = typer.Option("downloads/products.json", help="Output JSON file path (relative to downloads/)"),
+def download(filename: str = typer.Option("products.json", help="Output filename (saved to downloads/ directory)"),
              limit: int = typer.Option(100, help="Items per page (max 100)"),
              max_items: int = typer.Option(None, help="Stop after this many items (None = all)")):
     "Download products to a JSON file in downloads/ directory."
@@ -48,9 +48,10 @@ def download(output: str = typer.Option("downloads/products.json", help="Output 
         products_list = []
         n = 0
         try:
-            # Ensure downloads directory exists
-            output_path = Path(output)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
+            # Force output to downloads/ directory
+            downloads_dir = Path("downloads")
+            downloads_dir.mkdir(parents=True, exist_ok=True)
+            output_path = downloads_dir / filename
             
             async for p in __import__("akeneo_client.products").products.iter_products(c, limit=limit):
                 products_list.append(p.model_dump())

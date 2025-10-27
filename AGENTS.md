@@ -21,6 +21,7 @@ pip install .
 akeneo --help
 akeneo auth
 akeneo products --max-items 5
+akeneo download --max-items 5
 ```
 
 ### Environment
@@ -30,6 +31,11 @@ akeneo products --max-items 5
 ### Entry points
 - CLI: `akeneo` (installed via console script).
 - Library: import `AkeneoClient` from `akeneo_client.http` for custom flows.
+
+### Download outputs
+- **All downloads save to `downloads/` directory** — cannot be overridden by user input.
+- Directory is automatically created; git-ignored (never committed).
+- Safe for agents to run download commands without risk of committing data.
 
 ### Cautions
 - Network calls depend on Akeneo connectivity and credentials; handle 401/403 gracefully.
